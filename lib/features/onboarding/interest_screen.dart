@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/constants/sizes.dart';
+import 'package:tik_tok/features/onboarding/tutorial_screen.dart';
 import 'package:tik_tok/widgets/interest_button.dart';
 
 class InterestScreen extends StatefulWidget {
@@ -38,6 +39,14 @@ class _InterestScreenState extends State<InterestScreen> {
         _showTitle = false;
       });
     }
+  }
+
+  void _onNextTap() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const TutorialScreen(),
+        ));
   }
 
   @override
@@ -108,13 +117,17 @@ class _InterestScreenState extends State<InterestScreen> {
                 top: Sizes.size16,
                 left: Sizes.size24,
                 right: Sizes.size24),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: Sizes.size20),
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-              child: const Text(
-                "Next",
-                style: TextStyle(color: Colors.white, fontSize: Sizes.size16),
-                textAlign: TextAlign.center,
+            child: GestureDetector(
+              onTap: _onNextTap,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: Sizes.size20),
+                decoration:
+                    BoxDecoration(color: Theme.of(context).primaryColor),
+                child: const Text(
+                  "Next",
+                  style: TextStyle(color: Colors.white, fontSize: Sizes.size16),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           )),
