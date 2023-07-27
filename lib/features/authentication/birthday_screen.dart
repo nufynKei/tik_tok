@@ -39,10 +39,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   _onNextTap() {
     if (_birthday.isNotEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const InterestScreen(),
-        ),
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const InterestScreen()),
+        (route) => false,
       );
     }
   }
