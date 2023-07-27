@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/constants/sizes.dart';
-import 'package:tik_tok/features/authentication/email_screen.dart';
+import 'package:tik_tok/features/onboarding/interest_screen.dart';
 import 'package:tik_tok/widgets/form_button.dart';
 
 class BirthdayScreen extends StatefulWidget {
@@ -39,10 +39,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   _onNextTap() {
     if (_birthday.isNotEmpty) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const EmailScreen(),
-        ),
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const InterestScreen()),
+        (route) => false,
       );
     }
   }
@@ -81,11 +80,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                     borderSide: BorderSide(color: Colors.grey.shade400))),
           ),
           Gaps.v16,
-          GestureDetector(
-            onTap: _onNextTap,
-            child: Button_A(
-              disabled: _birthday.isEmpty,
-            ),
+          Button_A(
+            tap: _onNextTap,
+            disabled: _birthday.isEmpty,
           )
         ]),
       ),

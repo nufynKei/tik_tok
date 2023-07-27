@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tik_tok/features/onboarding/interest_screen.dart';
 import 'package:tik_tok/widgets/form_button.dart';
 
 import '../../constants/gaps.dart';
@@ -20,6 +21,10 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const InterestScreen()),
+          (route) => false,
+        );
       }
     }
   }
