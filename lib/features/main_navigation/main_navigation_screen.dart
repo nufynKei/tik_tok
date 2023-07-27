@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/constants/sizes.dart';
-import 'package:tik_tok/features/main_navigation/stf_screen.dart';
+import 'package:tik_tok/features/video/video_timeline_screen.dart';
 import 'package:tik_tok/widgets/nav_tab.dart';
+import 'package:tik_tok/widgets/post_video_button.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({Key? key}) : super(key: key);
@@ -20,25 +22,32 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     });
   }
 
+  void _onPVBTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: ((context) => Container()), fullscreenDialog: true),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
         Offstage(
           offstage: _selectedIndex != 0,
-          child: const StfScreen(),
+          child: const VideoTimaline(),
         ),
         Offstage(
           offstage: _selectedIndex != 1,
-          child: const StfScreen(),
+          child: Container(),
         ),
         Offstage(
           offstage: _selectedIndex != 3,
-          child: const StfScreen(),
+          child: Container(),
         ),
         Offstage(
           offstage: _selectedIndex != 4,
-          child: const StfScreen(),
+          child: Container(),
         )
       ]),
       bottomNavigationBar: BottomAppBar(
@@ -61,6 +70,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               icon: FontAwesomeIcons.compass,
               selectIcon: FontAwesomeIcons.solidCompass,
             ),
+            Gaps.h24,
+            GestureDetector(onTap: _onPVBTap, child: const PostVideoButton()),
+            Gaps.h24,
             NavTab(
               onTap: () => _onTap(3),
               text: "Inbox",
