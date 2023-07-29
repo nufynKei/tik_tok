@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/widgets/see_more.dart';
+import 'package:tik_tok/widgets/video_comments.dart';
 import 'package:tik_tok/widgets/video_icon_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -91,8 +92,13 @@ class _VideoPostState extends State<VideoPost>
     });
   }
 
-  void _onCommentsTap(BuildContext context) {
-    showModalBottomSheet(context: context, builder: (context) => Container());
+  void _onCommentsTap(BuildContext context) async {
+    if (_videoPlayerController.value.isPlaying) {
+      _onTogglePause();
+    }
+    await showModalBottomSheet(
+        context: context, builder: (context) => const VideoComments());
+    _onTogglePause();
   }
 
   @override
@@ -130,8 +136,8 @@ class _VideoPostState extends State<VideoPost>
                   child: AnimatedOpacity(
                     opacity: isPaused ? 1 : 0,
                     duration: _animationDuration,
-                    child: const FaIcon(
-                      FontAwesomeIcons.play,
+                    child: FaIcon(
+                      isPaused ? FontAwesomeIcons.pause : FontAwesomeIcons.play,
                       color: Colors.white,
                       size: Sizes.size48,
                     ),
