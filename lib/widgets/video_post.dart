@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tik_tok/constants/gaps.dart';
+import 'package:tik_tok/widgets/see_more.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -23,8 +25,8 @@ class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/traffic.mp4");
-
   bool isPaused = false;
+  double screenWidth = 0.0;
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
 
@@ -55,6 +57,11 @@ class _VideoPostState extends State<VideoPost>
         value: 1.5,
         duration: _animationDuration);
   }
+  @override
+  void didChangeDependencies() {
+    screenWidth = MediaQuery.of(context).size.width;
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
@@ -83,7 +90,6 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   Widget build(BuildContext context) {
-    print(_animationController.value);
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -127,7 +133,36 @@ class _VideoPostState extends State<VideoPost>
               ),
             ),
           )
-        ],
+          ,
+          Positioned(
+              bottom: Sizes.size24,
+              left: Sizes.size10,
+              width: screenWidth * 0.6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "@kei",
+                    style: TextStyle(
+                        fontSize: Sizes.size20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  Gaps.v10,
+                  Text(
+                    "This is my cities traffic",
+                    style:
+                        TextStyle(color: Colors.white, fontSize: Sizes.size14),
+                  ),
+                  Gaps.v4,
+                  SeeMoreText(
+                    text:
+                        "A VisibilityDetector widget wraps an existing Flutter widget and fires a callback when the widget's visibility changes. (It actually reports when the visibility of the VisibilityDetector itself changes, and its visibility is expected to be identical to that of its child.)",
+                    max: 0.1,
+                  )
+                ],
+              ))
+        ], 
       ),
     );
   }
