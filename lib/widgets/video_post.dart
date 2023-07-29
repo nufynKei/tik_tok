@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/widgets/see_more.dart';
+import 'package:tik_tok/widgets/video_icon_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -162,6 +163,39 @@ class _VideoPostState extends State<VideoPost>
                   )
                 ],
               ))
+           ,
+          Positioned(
+            bottom: 20,
+            right: 10,
+            child: Column(
+              children: const [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  foregroundImage: NetworkImage(
+                    "https://avatars.githubusercontent.com/u/91458522?v=4",
+                  ),
+                  child: Text("니꼬"),
+                ),
+                Gaps.v24,
+                VideoIconButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                VideoIconButton(
+                  icon: FontAwesomeIcons.solidComment,
+                  text: "33K",
+                ),
+                Gaps.v24,
+                VideoIconButton(
+                  icon: FontAwesomeIcons.share,
+                  text: "Share",
+                )
+              ],
+            ),
+          ),
         ], 
       ),
     );
