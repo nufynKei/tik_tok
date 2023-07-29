@@ -71,7 +71,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
-    if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
+    if (info.visibleFraction == 1 &&
+        !_videoPlayerController.value.isPlaying &&
+        !isPaused) {
       _videoPlayerController.play();
     }
   }
@@ -87,6 +89,10 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       isPaused = !isPaused;
     });
+  }
+
+  void _onCommentsTap(BuildContext context) {
+    showModalBottomSheet(context: context, builder: (context) => Container());
   }
 
   @override
@@ -168,8 +174,8 @@ class _VideoPostState extends State<VideoPost>
             bottom: 20,
             right: 10,
             child: Column(
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -179,17 +185,18 @@ class _VideoPostState extends State<VideoPost>
                   child: Text("니꼬"),
                 ),
                 Gaps.v24,
-                VideoIconButton(
+                const VideoIconButton(
                   icon: FontAwesomeIcons.solidHeart,
                   text: "2.9M",
                 ),
                 Gaps.v24,
                 VideoIconButton(
+                  onTap: () => _onCommentsTap(context),
                   icon: FontAwesomeIcons.solidComment,
                   text: "33K",
                 ),
                 Gaps.v24,
-                VideoIconButton(
+                const VideoIconButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 )
