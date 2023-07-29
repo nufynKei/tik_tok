@@ -97,7 +97,13 @@ class _VideoPostState extends State<VideoPost>
       _onTogglePause();
     }
     await showModalBottomSheet(
-        context: context, builder: (context) => const VideoComments());
+      isScrollControlled: true,
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Sizes.size14)),
+      context: context,
+      builder: (context) => const VideoComments(),
+    );
     _onTogglePause();
   }
 
