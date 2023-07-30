@@ -26,7 +26,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _onPVBTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
-          builder: ((context) => Container()), fullscreenDialog: true),
+          builder: ((context) => Scaffold(
+                appBar: AppBar(title: const Text("Post")),
+                body: Container(child: const Text("post video")),
+              )),
+          fullscreenDialog: true),
     );
   }
 
@@ -41,7 +45,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ),
         Offstage(
           offstage: _selectedIndex != 1,
-          child: const DiscoverScreen(),
+          child: DiscoverScreen(),
         ),
         Offstage(
           offstage: _selectedIndex != 3,
