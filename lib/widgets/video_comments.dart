@@ -17,6 +17,12 @@ class _VideoCommentsState extends State<VideoComments> {
 
   bool _isWriting = false;
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   void _onBack() {
     Navigator.of(context).pop();
   }
