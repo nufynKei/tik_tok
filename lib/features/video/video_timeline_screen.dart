@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tik_tok/widgets/video_post.dart';
+import 'package:tik_tok/features/video/video_post.dart';
 
 class VideoTimeLine extends StatefulWidget {
   const VideoTimeLine({Key? key}) : super(key: key);

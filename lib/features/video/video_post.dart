@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tik_tok/constants/gaps.dart';
+import 'package:tik_tok/constants/sizes.dart';
+import 'package:tik_tok/features/video/video_comments.dart';
+import 'package:tik_tok/features/video/video_icon_button.dart';
 import 'package:tik_tok/widgets/see_more.dart';
-import 'package:tik_tok/widgets/video_comments.dart';
-import 'package:tik_tok/widgets/video_icon_button.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
-import '../constants/sizes.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -59,6 +59,7 @@ class _VideoPostState extends State<VideoPost>
         value: 1.5,
         duration: _animationDuration);
   }
+
   @override
   void didChangeDependencies() {
     screenWidth = MediaQuery.of(context).size.width;
@@ -69,7 +70,7 @@ class _VideoPostState extends State<VideoPost>
   void dispose() {
     _videoPlayerController.dispose();
     _pauseIconController.dispose();
-    
+
     super.dispose();
   }
 
@@ -156,8 +157,7 @@ class _VideoPostState extends State<VideoPost>
                 ),
               ),
             ),
-          )
-          ,
+          ),
           Positioned(
               bottom: Sizes.size24,
               left: Sizes.size10,
@@ -185,8 +185,7 @@ class _VideoPostState extends State<VideoPost>
                     max: 0.1,
                   )
                 ],
-              ))
-           ,
+              )),
           Positioned(
             bottom: 20,
             right: 10,
@@ -220,7 +219,7 @@ class _VideoPostState extends State<VideoPost>
               ],
             ),
           ),
-        ], 
+        ],
       ),
     );
   }
