@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tik_tok/widgets/video_post.dart';
 
-class VideoTimaline extends StatefulWidget {
-  const VideoTimaline({Key? key}) : super(key: key);
+class VideoTimeLine extends StatefulWidget {
+  const VideoTimeLine({Key? key}) : super(key: key);
 
   @override
-  State<VideoTimaline> createState() => _VideoTimalineState();
+  State<VideoTimeLine> createState() => _VideoTimeLineState();
 }
 
-class _VideoTimalineState extends State<VideoTimaline> {
+class _VideoTimeLineState extends State<VideoTimeLine> {
   
   int _itemCount = 4;
   final PageController _pageController = PageController();

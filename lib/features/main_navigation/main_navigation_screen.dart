@@ -27,7 +27,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
           builder: ((context) => Scaffold(
-                appBar: AppBar(title: const Text("Post")),
+                appBar: AppBar(title: const Text("post")),
                 body: Container(child: const Text("post video")),
               )),
           fullscreenDialog: true),
@@ -41,11 +41,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       body: Stack(children: [
         Offstage(
           offstage: _selectedIndex != 0,
-          child: const VideoTimaline(),
+          child: const VideoTimeLine(),
         ),
         Offstage(
           offstage: _selectedIndex != 1,
-          child: DiscoverScreen(),
+          child: const DiscoverScreen(),
         ),
         Offstage(
           offstage: _selectedIndex != 3,
