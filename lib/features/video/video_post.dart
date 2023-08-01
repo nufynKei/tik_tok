@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tik_tok/constants/gaps.dart';
+import 'package:tik_tok/constants/sizes.dart';
+import 'package:tik_tok/features/video/video_comments.dart';
+import 'package:tik_tok/features/video/video_icon_button.dart';
 import 'package:tik_tok/widgets/see_more.dart';
-import 'package:tik_tok/widgets/video_comments.dart';
-import 'package:tik_tok/widgets/video_icon_button.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
-import '../constants/sizes.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -30,7 +30,7 @@ class _VideoPostState extends State<VideoPost>
   bool isPaused = false;
   double screenWidth = 0.0;
   final Duration _animationDuration = const Duration(milliseconds: 200);
-  late final AnimationController _animationController;
+  late final AnimationController _pauseIconController;
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
@@ -52,13 +52,14 @@ class _VideoPostState extends State<VideoPost>
   void initState() {
     super.initState();
     _initVideoPlayer();
-    _animationController = AnimationController(
+    _pauseIconController = AnimationController(
         vsync: this,
         lowerBound: 1.0,
         upperBound: 1.5,
         value: 1.5,
         duration: _animationDuration);
   }
+
   @override
   void didChangeDependencies() {
     screenWidth = MediaQuery.of(context).size.width;
@@ -68,6 +69,8 @@ class _VideoPostState extends State<VideoPost>
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    _pauseIconController.dispose();
+
     super.dispose();
   }
 
@@ -77,15 +80,18 @@ class _VideoPostState extends State<VideoPost>
         !isPaused) {
       _videoPlayerController.play();
     }
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      _onTogglePause();
+    }
   }
 
   void _onTogglePause() {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
-      _animationController.reverse();
+      _pauseIconController.reverse();
     } else {
       _videoPlayerController.play();
-      _animationController.forward();
+      _pauseIconController.forward();
     }
     setState(() {
       isPaused = !isPaused;
@@ -130,20 +136,20 @@ class _VideoPostState extends State<VideoPost>
             child: IgnorePointer(
               child: Center(
                 child: AnimatedBuilder(
-                  animation: _animationController,
+                  animation: _pauseIconController,
                   builder: (context, child) {
                     return
                         //animationController의 값이 변할 때마다 실행
                         Transform.scale(
-                      scale: _animationController.value,
+                      scale: _pauseIconController.value,
                       child: child,
                     );
                   },
                   child: AnimatedOpacity(
                     opacity: isPaused ? 1 : 0,
                     duration: _animationDuration,
-                    child: FaIcon(
-                      isPaused ? FontAwesomeIcons.pause : FontAwesomeIcons.play,
+                    child: const FaIcon(
+                      FontAwesomeIcons.pause,
                       color: Colors.white,
                       size: Sizes.size48,
                     ),
@@ -151,8 +157,7 @@ class _VideoPostState extends State<VideoPost>
                 ),
               ),
             ),
-          )
-          ,
+          ),
           Positioned(
               bottom: Sizes.size24,
               left: Sizes.size10,
@@ -180,8 +185,7 @@ class _VideoPostState extends State<VideoPost>
                     max: 0.1,
                   )
                 ],
-              ))
-           ,
+              )),
           Positioned(
             bottom: 20,
             right: 10,
@@ -215,7 +219,7 @@ class _VideoPostState extends State<VideoPost>
               ],
             ),
           ),
-        ], 
+        ],
       ),
     );
   }

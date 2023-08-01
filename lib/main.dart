@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tik_tok/features/main_navigation/main_navigation_screen.dart';
+import 'package:tik_tok/features/inbox/activity_screen.dart';
 
 import 'constants/sizes.dart';
 
@@ -16,6 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TikTok Clone',
       theme: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
         primaryColor: const Color(0xFFE9435A),
         appBarTheme: const AppBarTheme(
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const ActivityScreen(),
     );
   }
 }

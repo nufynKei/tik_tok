@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tik_tok/constants/gaps.dart';
 import 'package:tik_tok/constants/sizes.dart';
+import 'package:tik_tok/features/discover/discover_screen.dart';
+import 'package:tik_tok/features/inbox/inbox_screen.dart';
 import 'package:tik_tok/features/video/video_timeline_screen.dart';
 import 'package:tik_tok/widgets/nav_tab.dart';
 import 'package:tik_tok/widgets/post_video_button.dart';
@@ -14,7 +16,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onTap(int index) {
     setState(() {
@@ -25,7 +27,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _onPVBTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
-          builder: ((context) => Container()), fullscreenDialog: true),
+          builder: ((context) => Scaffold(
+                appBar: AppBar(title: const Text("post")),
+                body: Container(child: const Text("post video")),
+              )),
+          fullscreenDialog: true),
     );
   }
 
@@ -36,15 +42,15 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       body: Stack(children: [
         Offstage(
           offstage: _selectedIndex != 0,
-          child: const VideoTimaline(),
+          child: const VideoTimeLine(),
         ),
         Offstage(
           offstage: _selectedIndex != 1,
-          child: Container(),
+          child: const DiscoverScreen(),
         ),
         Offstage(
           offstage: _selectedIndex != 3,
-          child: Container(),
+          child: const InboxScreen(),
         ),
         Offstage(
           offstage: _selectedIndex != 4,
@@ -52,7 +58,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         )
       ]),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        color: _selectedIndex == 0 ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child:
@@ -63,6 +69,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               isSelect: _selectedIndex == 0,
               icon: FontAwesomeIcons.house,
               selectIcon: FontAwesomeIcons.houseChimney,
+              selectedIndex: _selectedIndex,
             ),
             NavTab(
               onTap: () => _onTap(1),
@@ -70,9 +77,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               isSelect: _selectedIndex == 1,
               icon: FontAwesomeIcons.compass,
               selectIcon: FontAwesomeIcons.solidCompass,
+              selectedIndex: _selectedIndex,
             ),
             Gaps.h24,
-            GestureDetector(onTap: _onPVBTap, child: const PostVideoButton()),
+            GestureDetector(
+                onTap: _onPVBTap,
+                child: PostVideoButton(inverted: _selectedIndex != 0)),
             Gaps.h24,
             NavTab(
               onTap: () => _onTap(3),
@@ -80,6 +90,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               isSelect: _selectedIndex == 3,
               icon: FontAwesomeIcons.message,
               selectIcon: FontAwesomeIcons.solidMessage,
+              selectedIndex: _selectedIndex,
             ),
             NavTab(
               onTap: () => _onTap(4),
@@ -87,6 +98,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               isSelect: _selectedIndex == 4,
               icon: FontAwesomeIcons.user,
               selectIcon: FontAwesomeIcons.solidUser,
+              selectedIndex: _selectedIndex,
             )
           ]),
         ),
