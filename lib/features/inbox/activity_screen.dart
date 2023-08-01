@@ -214,8 +214,9 @@ class _ActivityScreenState extends State<ActivityScreen>
             ],
           ),
           if (_showBarrier)
-            AnimatedModalBarrier(
-              color: _barrierAnimation,
+            ModalBarrier(
+              color: Colors.grey.shade900.withOpacity(0.5),
+              onDismiss: _toggleAnimations,
               dismissible: true,
             ),
           SlideTransition(
