@@ -68,8 +68,8 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
-    _pauseIconController.dispose();
+    // _videoPlayerController.dispose();
+    // _pauseIconController.dispose();
 
     super.dispose();
   }
@@ -129,7 +129,7 @@ class _VideoPostState extends State<VideoPost>
           ),
           Positioned.fill(
             child: GestureDetector(
-              onTap: _onTogglePause,
+              onTap: () => _onTogglePause,
             ),
           ),
           Positioned.fill(
@@ -162,9 +162,9 @@ class _VideoPostState extends State<VideoPost>
               bottom: Sizes.size24,
               left: Sizes.size10,
               width: screenWidth * 0.6,
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     "@kei",
                     style: TextStyle(
